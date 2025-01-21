@@ -45,9 +45,11 @@ private fun BookListScreen(
     onAction: (BookListAction) -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
-    Column(modifier = Modifier.fillMaxSize()
-        .background(DarkBlue)
-        .statusBarsPadding(),
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(DarkBlue)
+            .statusBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         BookSearchBar(
