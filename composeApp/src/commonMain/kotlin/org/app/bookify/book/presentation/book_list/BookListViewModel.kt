@@ -4,8 +4,13 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import org.app.bookify.book.domain.BookRepository
 
-class BookListViewModel : ViewModel() {
+/** presentation -> data <- domain **/
+
+class BookListViewModel(
+    private val bookRepository: BookRepository
+) : ViewModel() {
 
     private val _state = MutableStateFlow(BookListState())
     val state = _state.asStateFlow()

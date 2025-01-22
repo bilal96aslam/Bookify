@@ -44,7 +44,9 @@ import kotlin.math.round
 
 @Composable
 fun BookListItem(
-    book: Book, onClick: () -> Unit, modifier: Modifier = Modifier
+    book: Book,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Surface(
         shape = RoundedCornerShape(32.dp),
@@ -52,8 +54,10 @@ fun BookListItem(
         color = LightBlue.copy(alpha = 0.2f)
     ) {
         Row(
-            modifier = Modifier.padding(16.dp).fillMaxWidth()
-                .height(IntrinsicSize.Min) //give this row a fixed height that is still dynamic in some sense
+            modifier = Modifier.padding(14.dp).fillMaxWidth()
+                .height(IntrinsicSize.Min), //give this row a fixed height that is still dynamic in some sense
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             // this container for the imageView
             Box(
@@ -119,7 +123,8 @@ fun BookListItem(
                     ) {
                         Text(
                             text = "${round(rating * 10 / 10.0)}",
-                            style = MaterialTheme.typography.bodyMedium
+                            style = MaterialTheme.typography.bodyMedium,
+                            modifier = Modifier.padding(end = 5.dp)
                         )
                         Icon(
                             imageVector = Icons.Default.Star, contentDescription = null,
