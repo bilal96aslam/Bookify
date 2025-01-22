@@ -2,21 +2,38 @@ package org.app.bookify.book.presentation.book_list
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
+import androidx.compose.material3.TabRowDefaults
+import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import bookify.composeapp.generated.resources.Res
+import bookify.composeapp.generated.resources.favorites
+import bookify.composeapp.generated.resources.search_results
 import org.app.bookify.book.domain.Book
 import org.app.bookify.book.presentation.book_list.components.BookSearchBar
 import org.app.bookify.core.presentation.DarkBlue
+import org.app.bookify.core.presentation.DesertWhite
+import org.app.bookify.core.presentation.SandYellow
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -40,7 +57,7 @@ fun BookListScreenRoot(
 
 // now this approach our is now completely isolated now we can also preview our app
 @Composable
-private fun BookListScreen(
+fun BookListScreen(
     state: BookListState,
     onAction: (BookListAction) -> Unit
 ) {
@@ -65,6 +82,74 @@ private fun BookListScreen(
                 .fillMaxWidth()
                 .padding(16.dp)
         )
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f),
+            color = DesertWhite,
+            shape = RoundedCornerShape(
+                topStart = 32.dp,
+                topEnd = 32.dp
+            )
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                TabRow(
+                    selectedTabIndex = state.selectedTabIndex,
+                    modifier = Modifier
+                        .padding(vertical = 12.dp)
+                        .width(700.dp)
+                        .fillMaxWidth(),
+                    contentColor = SandYellow,
+                    containerColor = DesertWhite,
+                    indicator = {
+                        TabRowDefaults.SecondaryIndicator(
+                            color = SandYellow,
+                            modifier = Modifier
+                                .tabIndicatorOffset(it[state.selectedTabIndex])
+                        )
+                    }
+                ) {
+                    Tab(
+                        selected = state.selectedTabIndex == 0,
+                        onClick = {
+                            onAction(BookListAction.OnTabSelected(0))
+                        },
+                        modifier = Modifier
+                            .weight(1f),
+                        selectedContentColor = SandYellow,
+                        unselectedContentColor = Color.Black.copy(alpha = 0.5f)
+                    ) {
+                        Text(
+                            text = stringResource(Res.string.search_results),
+                            modifier = Modifier
+                                .padding(vertical = 12.dp)
+
+                        )
+                    }
+                    Tab(
+                        selected = state.selectedTabIndex == 1,
+                        onClick = {
+                            onAction(BookListAction.OnTabSelected(1))
+                        },
+                        modifier = Modifier
+                            .weight(1f),
+                        selectedContentColor = SandYellow,
+                        unselectedContentColor = Color.Black.copy(alpha = 0.5f)
+                    ) {
+                        Text(
+                            text = stringResource(Res.string.favorites),
+                            modifier = Modifier
+                                .padding(vertical = 12.dp)
+
+                        )
+                    }
+                }
+            }
+        }
+        Spacer(modifier = Modifier.height(4.dp))
+
     }
 
 }

@@ -55,8 +55,10 @@ fun BookListItem(
             modifier = Modifier.padding(16.dp).fillMaxWidth()
                 .height(IntrinsicSize.Min) //give this row a fixed height that is still dynamic in some sense
         ) {
+            // this container for the imageView
             Box(
-                modifier = Modifier.height(100.dp), contentAlignment = Alignment.Center
+                modifier = Modifier.height(100.dp),
+                contentAlignment = Alignment.Center
             ) {
                 var imageLoadResult by remember {
                     mutableStateOf<Result<Painter>?>(null)
@@ -91,9 +93,8 @@ fun BookListItem(
                         )
                     }
                 }
-
-
             }
+            // this container for the title, des content
             Column(
                 modifier = Modifier.fillMaxHeight().weight(1f),
                 verticalArrangement = Arrangement.Center
