@@ -54,7 +54,7 @@ fun BookListItem(
         color = LightBlue.copy(alpha = 0.2f)
     ) {
         Row(
-            modifier = Modifier.padding(14.dp).fillMaxWidth()
+            modifier = Modifier.padding(16.dp).fillMaxWidth()
                 .height(IntrinsicSize.Min), //give this row a fixed height that is still dynamic in some sense
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(16.dp)
