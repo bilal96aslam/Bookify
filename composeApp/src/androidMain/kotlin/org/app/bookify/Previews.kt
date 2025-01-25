@@ -7,9 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import org.app.bookify.book.presentation.book_list.BookListScreen
-import org.app.bookify.book.presentation.book_list.BookListState
-import org.app.bookify.book.presentation.book_list.books
 import org.app.bookify.book.presentation.book_list.components.BookSearchBar
 
 @Preview
@@ -27,15 +24,4 @@ private fun BookSearchPreview() {
             modifier = Modifier.fillMaxWidth()
         )
     }
-}
-
-@Preview
-@Composable
-private fun BookListPreview() {
-    BookListScreen(
-        state = BookListState(
-            searchResults = books
-        ),
-        onAction = {}
-    )
 }
