@@ -4,6 +4,7 @@ import org.app.bookify.book.data.network.KtorRemoteDataBookSource
 import org.app.bookify.book.data.network.RemoteBookDataSource
 import org.app.bookify.book.data.repository.DefaultBookRepository
 import org.app.bookify.book.domain.BookRepository
+import org.app.bookify.book.presentation.SelectedBookViewModel
 import org.app.bookify.book.presentation.book_list.BookListViewModel
 import org.app.bookify.core.data.HttpClientFactory
 import org.koin.core.module.Module
@@ -26,4 +27,6 @@ val sharedModule = module {
     singleOf(::KtorRemoteDataBookSource).bind<RemoteBookDataSource>()
     singleOf(::DefaultBookRepository).bind<BookRepository>()
     viewModelOf(::BookListViewModel)
+    viewModelOf(::SelectedBookViewModel)
+
 }
