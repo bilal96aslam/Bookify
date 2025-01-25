@@ -20,8 +20,6 @@ import org.app.bookify.core.domain.onError
 import org.app.bookify.core.domain.onSuccess
 import org.app.bookify.core.presentation.toUiText
 
-/** presentation -> data <- domain **/
-
 class BookListViewModel(
     private val bookRepository: BookRepository
 ) : ViewModel() {
