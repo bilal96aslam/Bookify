@@ -68,7 +68,7 @@ fun BookListScreenRoot(
 
 // now this approach our is now completely isolated now we can also preview our app
 @Composable
-fun BookListScreen(
+private fun BookListScreen(
     state: BookListState,
     onAction: (BookListAction) -> Unit
 ) {
