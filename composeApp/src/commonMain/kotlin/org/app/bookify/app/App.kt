@@ -15,7 +15,7 @@ import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import org.app.bookify.book.presentation.SelectedBookViewModel
 import org.app.bookify.book.presentation.book_detail.BookDetailAction
-import org.app.bookify.book.presentation.book_detail.BookDetailRoot
+import org.app.bookify.book.presentation.book_detail.BookDetailScreenRoot
 import org.app.bookify.book.presentation.book_detail.BookDetailViewModel
 import org.app.bookify.book.presentation.book_list.BookListScreenRoot
 import org.app.bookify.book.presentation.book_list.BookListViewModel
@@ -59,8 +59,8 @@ fun App() {
                 composable<Route.BookDetail> {
                     val selectedBookViewModel =
                         it.sharedKoinViewModel<SelectedBookViewModel>(navController)
-                    val selectedBook by selectedBookViewModel.selectedBook.collectAsStateWithLifecycle()
                     val viewModel: BookDetailViewModel = koinViewModel<BookDetailViewModel>()
+                    val selectedBook by selectedBookViewModel.selectedBook.collectAsStateWithLifecycle()
 
                     LaunchedEffect(selectedBook) {
                         selectedBook?.let { book->
@@ -68,7 +68,7 @@ fun App() {
                         } 
                     }
 
-                    BookDetailRoot(
+                    BookDetailScreenRoot(
                         viewModel = viewModel,
                         onBackClick = {
                             navController.navigateUp()
