@@ -1,5 +1,9 @@
 package org.app.bookify.di
 
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import org.app.bookify.book.data.database.DatabaseFactory
+import org.app.bookify.book.data.database.FavouriteBookDao
+import org.app.bookify.book.data.database.FavouriteBookDatabase
 import org.app.bookify.book.data.network.KtorRemoteDataBookSource
 import org.app.bookify.book.data.network.RemoteBookDataSource
 import org.app.bookify.book.data.repository.DefaultBookRepository
@@ -27,6 +31,14 @@ val sharedModule = module {
      **/
     singleOf(::KtorRemoteDataBookSource).bind<RemoteBookDataSource>()
     singleOf(::DefaultBookRepository).bind<BookRepository>()
+    single {
+        get<DatabaseFactory>().create()
+            .setDriver(BundledSQLiteDriver())
+            .build()
+    }
+    single {
+        get<FavouriteBookDatabase>().favouriteBookDao
+    }
     viewModelOf(::BookListViewModel)
     viewModelOf(::SelectedBookViewModel)
     viewModelOf(::BookDetailViewModel)

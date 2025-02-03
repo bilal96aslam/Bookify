@@ -1,9 +1,11 @@
 package org.app.bookify.book.data.database
 
+import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
 import kotlinx.coroutines.flow.Flow
 
+@Dao
 interface FavouriteBookDao {
     // insert it of it doesn't exist update it if exist
     @Upsert

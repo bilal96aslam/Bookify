@@ -1,14 +1,33 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Desktop.
+# Bookify 📚
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+A Kotlin Multiplatform (KMP) app that fetches and displays books, provides detailed information, and allows users to save their favorites.
+## Features 🚀
+- **Fetch book data from an API**
+- **Display book details including name, language, and description**
+- **Save books to a local favorites list** architecture pattern
+- **Smooth image loading with Coil** 
+- **Clean and scalable architecture using MVI**
 
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+## Built With 🛠️
+- **Kotlin Multiplatform** Shared business logic across Android, iOS, and Desktop
+- **Ktor** API requests
+- **Coil** Image loading
+- **Koin** Dependency Injection
+- **Room** Local database for favorites
+- **MVI Architecture** Clean state management
 
+The Project is Built On 🛠️
+- Android Studio Ladybug Feature Drop | 2024.2.2
+- Xcode Version 16.2
+- Kotlin: 2.1.0
 
-Learn more about [Kotlin Multiplatform]( https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+## Getting Started 🏁
+1. Clone the repository:
+   ```bash
+   git clone git clone https://github.com/bilal96aslam/Bookify.git
+   ```
+2. Open in Android Studio.
+3. Build and run the project.
+
+## Contributing 🤝
+Contributions are welcome! Feel free to submit issues or pull requests.

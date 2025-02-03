@@ -26,6 +26,7 @@ class BookListViewModel(
 
     private var cachedBook = emptyList<Book>()
     private var searchJob: Job? = null
+    private var favouriteBookJob: Job? = null
     private val _state = MutableStateFlow(BookListState())
     val state = _state
         .onStart {
@@ -35,6 +36,7 @@ class BookListViewModel(
             if (cachedBook.isEmpty()) {
                 observeSearchQuery()
             }
+            observeFavouriteBook()
         }.stateIn(
             viewModelScope,
             // while there is active subscriber of our state we will execute this flow chain here
@@ -44,9 +46,7 @@ class BookListViewModel(
 
     fun onAction(action: BookListAction) {
         when (action) {
-            is BookListAction.OnBookClick -> {
-
-            }
+            is BookListAction.OnBookClick -> {}
 
             is BookListAction.OnSearchQueryChange -> {
                 // update is a method that updates the state in a thread safe manner
@@ -62,6 +62,19 @@ class BookListViewModel(
                 }
             }
         }
+    }
+
+    private fun observeFavouriteBook() {
+        /** to cancel the previous observer bcz, once our state start observing again our
+        previous one will not cancel automatically, alternative approach is to utilize
+        init block **/
+        favouriteBookJob?.cancel()
+        favouriteBookJob = bookRepository.getFavouriteBooks()
+            .onEach { bookList ->
+                _state.update {
+                    it.copy(favoriteBooks = bookList)
+                }
+            }.launchIn(viewModelScope)
     }
 
     private fun observeSearchQuery() {

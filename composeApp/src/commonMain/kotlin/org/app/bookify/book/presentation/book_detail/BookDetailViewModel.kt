@@ -6,6 +6,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -25,6 +27,7 @@ class BookDetailViewModel(
     val bookDetailState = _bookDetailState
         .onStart {
             fetchBookDescription()
+            observeFavouriteBook()
         }
         .stateIn(
             viewModelScope,
@@ -41,11 +44,28 @@ class BookDetailViewModel(
             }
 
             BookDetailAction.OnFavouriteClick -> {
-
+                viewModelScope.launch {
+                    if (bookDetailState.value.isFavourite) {
+                        bookRepository.deleteFromFavourite(bookId)
+                    } else {
+                        bookDetailState.value.book?.let {
+                            bookRepository.markAsFavourite(it)
+                        }
+                    }
+                }
             }
 
             else -> Unit
         }
+    }
+
+    private fun observeFavouriteBook() {
+        bookRepository.isBookFavourite(bookId)
+            .onEach { isFavourite ->
+                _bookDetailState.update {
+                    it.copy(isFavourite = isFavourite)
+                }
+            }.launchIn(viewModelScope)
     }
 
     private fun fetchBookDescription() {

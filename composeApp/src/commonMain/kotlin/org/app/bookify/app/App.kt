@@ -1,5 +1,7 @@
 package org.app.bookify.app
 
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -34,7 +36,10 @@ fun App() {
             navigation<Route.BookGraph>(
                 startDestination = Route.BookList
             ) {
-                composable<Route.BookList> {
+                composable<Route.BookList>(
+                    exitTransition = { slideOutHorizontally() },
+                    popEnterTransition = { slideInHorizontally() }
+                ) {
                     val viewModel = koinViewModel<BookListViewModel>()
                     val selectedBookViewModel = it.sharedKoinViewModel<SelectedBookViewModel>(
                         navController
@@ -56,16 +61,23 @@ fun App() {
                     )
                 }
 
-                composable<Route.BookDetail> {
+                composable<Route.BookDetail>(
+                    enterTransition = {
+                        slideInHorizontally { it }
+                    },
+                    exitTransition = {
+                        slideOutHorizontally { it }
+                    }
+                ) {
                     val selectedBookViewModel =
                         it.sharedKoinViewModel<SelectedBookViewModel>(navController)
                     val viewModel: BookDetailViewModel = koinViewModel<BookDetailViewModel>()
                     val selectedBook by selectedBookViewModel.selectedBook.collectAsStateWithLifecycle()
 
                     LaunchedEffect(selectedBook) {
-                        selectedBook?.let { book->
+                        selectedBook?.let { book ->
                             viewModel.onAction(BookDetailAction.OnBookSelectedChange(book))
-                        } 
+                        }
                     }
 
                     BookDetailScreenRoot(
