@@ -28,6 +28,8 @@ val sharedModule = module {
     /** 'singleOf()' this will instruct koin to try to create the instance
      * with dependencies it already have present 'bind<RemoteBookDataSource>()'
      * this is actual dependency we have pass 'KtorRemoteDataBookSource' this is the impl.
+     * Registers DefaultBookRepository as a singleton.
+     * Binds it to BookRepository, so when BookRepository is requested, it provides an instance of DefaultBookRepository.
      **/
     singleOf(::KtorRemoteDataBookSource).bind<RemoteBookDataSource>()
     singleOf(::DefaultBookRepository).bind<BookRepository>()
